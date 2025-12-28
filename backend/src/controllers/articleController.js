@@ -1,4 +1,4 @@
-import Article from "../models/Article.js";
+import Article from "../models/ArticleModel.js";
 import { scrapeSingleBlog } from "../utils/scrapeSingleBlog.js";
 
 export const createArticleFromUrl = async (req, res) => {
