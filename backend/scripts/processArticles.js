@@ -3,6 +3,7 @@ dotenv.config();
 
 import axios from "axios";
 import { searchGoogle } from "../src/utils/googleSearch.js";
+import { scrapeArticle } from "../src/utils/scrapeArticle.js";
 
 const API_BASE_URL = "http://localhost:5000/api/articles";
 
@@ -13,15 +14,19 @@ const fetchArticles = async () => {
 
 const start = async () => {
   const articles = await fetchArticles();
+for (const article of articles) {
+  console.log("\n🔍 Searching for:", article.title);
 
-  for (const article of articles) {
-    console.log("\n🔍 Searching for:", article.title);
+  const links = await searchGoogle(article.title);
 
-    const links = await searchGoogle(article.title);
+  for (const link of links) {
+    console.log("Scraping:", link);
 
-    console.log("Top reference links:");
-    console.log(links);
+    const content = await scrapeArticle(link);
+    console.log("Extracted length:", content.length);
   }
+}
+
 };
 
 start();
