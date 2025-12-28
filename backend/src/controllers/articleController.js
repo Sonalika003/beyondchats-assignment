@@ -55,3 +55,24 @@ export const getArticleById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const updateArticle = async (req, res) => {
+  try {
+    const article = await Article.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    if (!article) {
+      return res.status(404).json({ message: "Article not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: article
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
