@@ -187,6 +187,12 @@ All APIs were tested using **Postman**:
 │ Collection) │
 └─────────────┘
 ```
+## Note on AI Rewriting
+
+The AI rewriting pipeline uses OpenAI APIs.  
+If the API quota is exceeded, the system gracefully skips rewriting while preserving the pipeline flow.
+
+This behavior ensures the system remains stable in production environments with rate limits.
 
 
 ## 👩‍💻 Author
