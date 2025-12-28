@@ -39,3 +39,19 @@ export const getAllArticles = async (req, res) => {
   }
 };
 
+export const getArticleById = async (req, res) => {
+  try {
+    const article = await Article.findById(req.params.id);
+
+    if (!article) {
+      return res.status(404).json({ message: "Article not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: article
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
