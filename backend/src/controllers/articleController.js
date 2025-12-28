@@ -25,3 +25,17 @@ export const createArticleFromUrl = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getAllArticles = async (req, res) => {
+  try {
+    const articles = await Article.find().sort({ createdAt: -1 });
+    res.status(200).json({
+      success: true,
+      count: articles.length,
+      data: articles
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
