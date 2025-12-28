@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-
 import axios from "axios";
 import { searchGoogle } from "../src/utils/googleSearch.js";
 
