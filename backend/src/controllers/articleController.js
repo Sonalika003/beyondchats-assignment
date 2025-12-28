@@ -93,3 +93,23 @@ export const deleteArticle = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const updateArticleWithRewrite = async (req, res) => {
+  const { id } = req.params;
+  const { rewrittenContent, references, isRewritten } = req.body;
+
+  const updated = await Article.findByIdAndUpdate(
+    id,
+    {
+      rewrittenContent,
+      references,
+      isRewritten
+    },
+    { new: true }
+  );
+
+  res.status(200).json({
+    success: true,
+    data: updated
+  });
+};

@@ -23,7 +23,15 @@ const articleSchema = new mongoose.Schema(
       {
         type: String
       }
-    ]
+    ],
+    rewrittenContent: {
+  type: String
+},
+isRewritten: {
+  type: Boolean,
+  default: false
+}
+
   },
   {
     timestamps: true

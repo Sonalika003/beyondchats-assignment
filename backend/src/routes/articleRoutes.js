@@ -1,5 +1,5 @@
 import express from "express";
-import { createArticleFromUrl, getAllArticles, getArticleById, updateArticle, deleteArticle } from "../controllers/articleController.js";
+import { createArticleFromUrl, getAllArticles, getArticleById, updateArticle, deleteArticle, updateArticleWithRewrite } from "../controllers/articleController.js";
 
 const router = express.Router();
 
@@ -8,5 +8,7 @@ router.get("/", getAllArticles);
 router.get("/:id", getArticleById);
 router.put("/:id", updateArticle);
 router.delete("/:id", deleteArticle);
+router.put("/:id/rewrite", updateArticleWithRewrite);
+
 
 export default router;

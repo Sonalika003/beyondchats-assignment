@@ -6,7 +6,6 @@ import { searchGoogle } from "../src/utils/googleSearch.js";
 import { scrapeArticle } from "../src/utils/scrapeArticle.js";
 import { rewriteArticle } from "../src/utils/rewriteArticle.js";
 
-
 const API_BASE_URL = "http://localhost:5000/api/articles";
 
 const fetchArticles = async () => {
@@ -16,35 +15,45 @@ const fetchArticles = async () => {
 
 const start = async () => {
   const articles = await fetchArticles();
-for (const article of articles) {
-  console.log("\n✍️ Rewriting:", article.title);
 
-  const links = await searchGoogle(article.title);
+  for (const article of articles) {
+    console.log("\n✍️ Rewriting:", article.title);
 
-  const referenceContents = [];
+    const links = await searchGoogle(article.title);
+    const referenceContents = [];
 
-  for (const link of links) {
-    const content = await scrapeArticle(link);
-    if (content.length > 300) {
-      referenceContents.push(content);
+    for (const link of links) {
+      const content = await scrapeArticle(link);
+      if (content.length > 300) {
+        referenceContents.push(content);
+      }
     }
+
+    if (referenceContents.length === 0) {
+      console.log("❌ No reference content found, skipping...");
+      continue;
+    }
+
+    const rewritten = await rewriteArticle({
+      title: article.title,
+      originalContent: article.content,
+      referenceContents
+    });
+
+    console.log("✅ Rewritten article length:", rewritten.length);
+
+    // 🔥 THIS IS WHERE THE PUT GOES
+    await axios.put(
+      `${API_BASE_URL}/${article._id}/rewrite`,
+      {
+        rewrittenContent: rewritten,
+        references: links,
+        isRewritten: rewritten !== "[AI rewrite skipped due to quota limit]"
+      }
+    );
+
+    console.log("💾 Article updated in DB");
   }
-
-  if (referenceContents.length === 0) {
-    console.log("❌ No reference content found, skipping...");
-    continue;
-  }
-
-  const rewritten = await rewriteArticle({
-    title: article.title,
-    originalContent: article.content,
-    referenceContents
-  });
-
-  console.log("✅ Rewritten article length:", rewritten.length);
-}
-
-
 };
 
 start();
