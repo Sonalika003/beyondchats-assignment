@@ -1,18 +1,27 @@
+import dotenv from "dotenv";
+dotenv.config();
+
+
 import axios from "axios";
+import { searchGoogle } from "../src/utils/googleSearch.js";
 
 const API_BASE_URL = "http://localhost:5000/api/articles";
 
 const fetchArticles = async () => {
-  const response = await axios.get(API_BASE_URL);
-  return response.data.data;
+  const res = await axios.get(API_BASE_URL);
+  return res.data.data;
 };
 
 const start = async () => {
   const articles = await fetchArticles();
-  console.log(`Fetched ${articles.length} articles`);
 
   for (const article of articles) {
-    console.log("Processing:", article.title);
+    console.log("\n🔍 Searching for:", article.title);
+
+    const links = await searchGoogle(article.title);
+
+    console.log("Top reference links:");
+    console.log(links);
   }
 };
 
