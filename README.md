@@ -204,6 +204,15 @@ A minimal React dashboard to:
 
 The frontend consumes backend APIs and demonstrates end-to-end integration.
 
+## Live Demo
+
+Frontend (Netlify):
+https://beyondchats-assign.netlify.app
+
+Backend API (Render):
+https://beyondchats-assignment-sukh.onrender.com/api/articles
+
+
 ## 👩‍💻 Author
 
 **Sonalika Chaudhari**  
