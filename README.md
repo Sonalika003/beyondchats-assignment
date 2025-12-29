@@ -204,7 +204,6 @@ A minimal React dashboard to:
 
 The frontend consumes backend APIs and demonstrates end-to-end integration.
 
-
 ## 👩‍💻 Author
 
 **Sonalika Chaudhari**  
