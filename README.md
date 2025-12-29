@@ -194,6 +194,16 @@ If the API quota is exceeded, the system gracefully skips rewriting while preser
 
 This behavior ensures the system remains stable in production environments with rate limits.
 
+## Phase 3: React Frontend
+
+A minimal React dashboard to:
+- View articles
+- Check rewrite status
+- Read rewritten content
+- Inspect reference sources
+
+The frontend consumes backend APIs and demonstrates end-to-end integration.
+
 
 ## 👩‍💻 Author
 
